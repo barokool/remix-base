@@ -11,22 +11,8 @@ import { EmailBanner } from "~/pages/footer/subscribe";
 import { ArticleCardFooter } from "~/pages/home/article-card";
 import { HomeBanner } from "~/pages/home/banner";
 import { GetInTouchSimple } from "~/pages/home/get-in-touch";
-import { getCookie } from "~/utils/cookie";
 
 export default function Index() {
-  const fetchApi = async () => {
-    // const response = await getUserByTokenByAxios(
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3NjI4MzM5NSwiZXhwIjoxNjc2MjgzNDgxfQ.kB_mQQ1BuxCc23_ykm25HhlGpUXSTY6oL6trIOvLR7s"
-    // );
-
-    const response = await getUserByTokenByAxiosNoNeedToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY3NjI4Mzc1OCwiZXhwIjoxNjc2MjgzODQ0fQ.Ymt5cgqFGIbAbgvKhqe_kXjilRRS-d3SgJXU8jAKUtM"
-    );
-    console.log("data : ", response.data);
-
-    // console.log(getCookie("accessToken"));
-  };
-
   return (
     <>
       <HomeBanner />
@@ -37,12 +23,7 @@ export default function Index() {
         }}
       >
         <Heading>Top Blogs in Weeks</Heading>
-        <button
-          style={{ border: "1px solid black" }}
-          onClick={() => fetchApi()}
-        >
-          Click
-        </button>
+
         <Container
           sx={{
             display: "flex",

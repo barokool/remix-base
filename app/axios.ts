@@ -11,7 +11,7 @@ jwtInterceoptor.interceptors.request.use((config) => {
   //     "access_token"
   //   );
   //   console.log("token ne : ", token);
-
+  console.log(config.headers);
   console.log("config ne ", config.headers.get("access_token"));
   config.headers.Authorization = `Bearer ${newToken}`;
   return config;

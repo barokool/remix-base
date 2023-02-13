@@ -41,20 +41,20 @@ export const action = async ({ request }: ActionArgs) => {
       status: 404,
     });
 
-  const headers = new Headers([
-    ["Set-Cookie", `access_token=${response.accessToken}; path=/`],
-    // [
-    //   "Set-Cookie",
-    //   `refresh_token=${response.refreshToken}; HttpOnly; path=/; SameSite=lax;  'secure'
-    //     }`,
-    // ],
-  ]);
+  // const headers = new Headers([
+  //   ["Set-Cookie", `access_token=${response.accessToken}; path=/`],
+  //   // [
+  //   //   "Set-Cookie",
+  //   //   `refresh_token=${response.refreshToken}; HttpOnly; path=/; SameSite=lax;  'secure'
+  //   //     }`,
+  //   // ],
+  // ]);
 
-  return redirect("/", {
-    headers,
-  });
+  // return redirect("/", {
+  //   headers,
+  // });
 
-  // return await createUserSession(response.accessToken, "/");
+  return await createUserSession(response.accessToken, "/");
 };
 
 const LoginPage = () => {

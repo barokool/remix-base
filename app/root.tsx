@@ -24,22 +24,17 @@ import { getCookieByName, getUserSession } from "./utils/cookie";
 createEmotionCache({ key: "mantine" });
 
 export const loader = async ({ request }: LoaderArgs) => {
-  // const session = await getUserSession(request);
-  const token = getCookieByName(request.headers.get("cookie"), "access_token");
+  const session = await getUserSession(request);
 
-  // const userToken = session.get("accessToken") as string;
+  const userToken = session.get("accessToken") as string;
 
-  // if (!userToken) return null;
+  if (!userToken) return null;
 
-  // console.log({ userToken });
-  // const user = await getUserByToken(userToken);
-  // const user2 = await getUserByTokenByAxios(userToken);
+  const user = await getUserByToken(userToken);
 
-  // if ((user as any)?.statusCode === 401) return null;
+  if ((user as any)?.statusCode === 401) return null;
 
-  console.log("token ne");
-  console.log({ token });
-  return json({ user: null, user2: null });
+  return json({ user });
 };
 
 export default function App() {

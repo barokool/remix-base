@@ -119,7 +119,7 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const navigate = useNavigate();
-  const data = useLoaderData<{ user: User; user2: User }>();
+  const data = useLoaderData<{ user: User }>();
 
   const items = tabs.map((tab) => (
     <Tabs.Tab value={tab} key={tab}>
@@ -128,9 +128,6 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
   ));
 
   const user = data?.user as User | null;
-  const user2 = data?.user2 as User | null;
-  console.log(user);
-  console.log(user2);
 
   return (
     <div className={classes.header}>
