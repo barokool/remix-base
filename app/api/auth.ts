@@ -27,7 +27,6 @@ export const googleAuthLoginAPI = async (
 export const getUserByToken = async (
   token: string
 ): Promise<{ user: User } | { statusCode: number; message: string }> => {
-  console.log(token);
   const bearer = "Bearer " + token;
   const data = await fetch(`${API_URL}/authen/userWithToken`, {
     method: "GET",

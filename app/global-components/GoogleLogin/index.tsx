@@ -4,16 +4,22 @@ import GoogleLogin, {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import { useGoogleAuthentication } from "~/hooks/useGoogleAuthentication";
-import { VITE_GOOGLE_CLIENT_ID } from "~/constants/env";
 import BrowserOnly from "../BrowserOnly";
 import { Loader } from "@mantine/core";
 import { createUserSession, storage } from "~/utils/cookie";
 import { GoogleResponse } from "~/models/user";
-import { useFetcher } from "@remix-run/react";
+import {
+  useFetcher,
+  useLoaderData,
+  useRouteLoaderData,
+} from "@remix-run/react";
+import { loader } from "~/root";
 
 export function GoogleButton() {
   const { handleSuccess } = useGoogleAuthentication();
   const fetcher = useFetcher();
+
+  const VITE_GOOGLE_CLIENT_ID = ENV?.VITE_GOOGLE_CLIENT_ID;
 
   const handleLog = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
