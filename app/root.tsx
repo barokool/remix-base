@@ -10,6 +10,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import { useContext, useEffect } from "react";
 import { getUserByToken, getUserByTokenByAxios } from "./api/auth";
@@ -32,9 +33,20 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   const user = await getUserByToken(userToken);
 
-  if ((user as any)?.statusCode === 401) return null;
+  const env = {
+    STUPID_REMIX: process.env.STUPID_REMIX,
+    API_URL: process.env.API_URL,
+    SESSION_SECRET: process.env.SESSION_SECRET,
+    VITE_GOOGLE_CLIENT_ID: process.env.VITE_GOOGLE_CLIENT_ID,
+    VITE_GOOGLE_CLIENT_SECRET: process.env.VITE_GOOGLE_CLIENT_SECRET,
+  };
 
-  return json({ user });
+  if ((user as any)?.statusCode === 401) return json({ user: null, ENV: env });
+
+  return json({
+    user,
+    ENV: env,
+  });
 };
 
 export default function App() {
@@ -54,6 +66,7 @@ interface DocumentProps {
 
 const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
+    const data = useLoaderData<typeof loader>();
     const serverStyleData = useContext(ServerStyleContext);
     const clientStyleData = useContext(ClientStyleContext);
 
@@ -92,6 +105,11 @@ const Document = withEmotionCache(
               <NavigationToast />
             </BrowserOnly>
             <ScrollRestoration />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.ENV = ${JSON.stringify((data as any).ENV)}`,
+              }}
+            />
             <Scripts />
             <LiveReload />
           </body>
