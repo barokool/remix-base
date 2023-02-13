@@ -1,6 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { withEmotionCache } from "@emotion/react";
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import { createEmotionCache, MantineProvider } from "@mantine/core";
+import { StylesPlaceholder } from "@mantine/remix";
+import { json, LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -10,11 +12,35 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { useContext, useEffect } from "react";
+import { getUserByToken, getUserByTokenByAxios } from "./api/auth";
 import { ClientStyleContext, ServerStyleContext } from "./context";
 import { ErrorBoundaryComponent } from "./design-components/errors-catch";
 import NavigationToast from "./design-components/navigation-toast";
 import BrowserOnly from "./global-components/BrowserOnly";
 import GeneralLayout from "./layout/GeneralLayout";
+import { parseJwt } from "./utils/auth/jwt";
+import { getCookieByName, getUserSession } from "./utils/cookie";
+
+createEmotionCache({ key: "mantine" });
+
+export const loader = async ({ request }: LoaderArgs) => {
+  // const session = await getUserSession(request);
+  const token = getCookieByName(request.headers.get("cookie"), "access_token");
+
+  // const userToken = session.get("accessToken") as string;
+
+  // if (!userToken) return null;
+
+  // console.log({ userToken });
+  // const user = await getUserByToken(userToken);
+  // const user2 = await getUserByTokenByAxios(userToken);
+
+  // if ((user as any)?.statusCode === 401) return null;
+
+  console.log("token ne");
+  console.log({ token });
+  return json({ user: null, user2: null });
+};
 
 export default function App() {
   return (
@@ -51,28 +77,31 @@ const Document = withEmotionCache(
     }, []);
 
     return (
-      <html lang="en">
-        <head>
-          <Meta />
-          <Links />
-          {serverStyleData?.map(({ key, ids, css }) => (
-            <style
-              key={key}
-              data-emotion={`${key} ${ids.join(" ")}`}
-              dangerouslySetInnerHTML={{ __html: css }}
-            />
-          ))}
-        </head>
-        <body>
-          {children}
-          <BrowserOnly>
-            <NavigationToast />
-          </BrowserOnly>
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </body>
-      </html>
+      <MantineProvider withGlobalStyles withNormalizeCSS>
+        <html lang="en">
+          <head>
+            <StylesPlaceholder />
+            <Meta />
+            <Links />
+            {serverStyleData?.map(({ key, ids, css }) => (
+              <style
+                key={key}
+                data-emotion={`${key} ${ids.join(" ")}`}
+                dangerouslySetInnerHTML={{ __html: css }}
+              />
+            ))}
+          </head>
+          <body>
+            {children}
+            <BrowserOnly>
+              <NavigationToast />
+            </BrowserOnly>
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </body>
+        </html>
+      </MantineProvider>
     );
   }
 );

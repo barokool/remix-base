@@ -5,6 +5,7 @@ import { RemixBrowser } from "@remix-run/react";
 
 import { ClientStyleContext } from "./context";
 import createEmotionCache, { defaultCache } from "./createEmotionCache";
+import { ClientProvider } from "@mantine/remix";
 
 interface ClientCacheProviderProps {
   children: React.ReactNode;
@@ -26,7 +27,9 @@ function ClientCacheProvider({ children }: ClientCacheProviderProps) {
 
 hydrate(
   <ClientCacheProvider>
-    <RemixBrowser />
+    <ClientProvider>
+      <RemixBrowser />
+    </ClientProvider>
   </ClientCacheProvider>,
   document
 );
