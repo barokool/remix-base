@@ -1,6 +1,6 @@
 export default {
   colors: {
-    primary: "rgba(51, 204, 204, 1)",
+    primary: "#f5f5f5",
     //-------------------------Primary-------------------------
     primaryGreen900: "hsl(176, 89%, 18%)",
     primaryGreen800: "hsl(176, 89%, 22%)",

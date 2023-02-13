@@ -1,32 +1,29 @@
+import { styled } from "~/design-system/stitches.config";
+
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <Container
+      style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}
+    >
+      <Layout>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </Layout>
+    </Container>
   );
 }
+
+const Layout = styled("div", {
+  display: "grid",
+  gridTemplateColumns: "240px 2fr 1fr",
+  gap: "16px",
+  width: "100%",
+  margin: "0 auto",
+  maxWidth: "1280px",
+});
+
+const Container = styled("div", {
+  width: "100%",
+  background: "$primary",
+});

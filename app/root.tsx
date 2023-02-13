@@ -14,12 +14,15 @@ import { ClientStyleContext, ServerStyleContext } from "./context";
 import { ErrorBoundaryComponent } from "./design-components/errors-catch";
 import NavigationToast from "./design-components/navigation-toast";
 import BrowserOnly from "./global-components/BrowserOnly";
+import GeneralLayout from "./layout/GeneralLayout";
 
 export default function App() {
   return (
     <Document>
       <ChakraProvider>
-        <Outlet />
+        <GeneralLayout>
+          <Outlet />
+        </GeneralLayout>
       </ChakraProvider>
     </Document>
   );
