@@ -84,3 +84,13 @@ export const getUserToken = async (request: Request) => {
   if (!validToken) return null;
   return userToken;
 };
+
+export const getCookieByName = (cookie: string | null, name?: string) => {
+  if (!cookie || !name) return;
+  const cookieArr = cookie.split(";");
+  return (
+    cookieArr
+      .find((str: string) => str.split("=")[0]?.trim() === name)
+      ?.split("=")[1] || ""
+  );
+};
