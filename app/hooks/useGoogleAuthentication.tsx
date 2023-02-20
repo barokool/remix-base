@@ -2,7 +2,6 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import { API_URL } from "~/constants/env";
 export function useGoogleAuthentication() {
   const handleSuccess = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline

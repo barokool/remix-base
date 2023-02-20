@@ -110,22 +110,12 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderTabsProps {
-  tabs: string[];
-}
-
-export function HeaderTabs({ tabs }: HeaderTabsProps) {
+export function HeaderTabs() {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const navigate = useNavigate();
   const data = useLoaderData<{ user: User }>();
-
-  const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
-      {tab}
-    </Tabs.Tab>
-  ));
 
   const user = data?.user as User | null;
 
@@ -156,12 +146,6 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
                   })}
                 >
                   <Group spacing={7}>
-                    {/* <Avatar
-                      src={user.image}
-                      alt={user.name}
-                      radius="xl"
-                      size={20}
-                    /> */}
                     <Text weight={500} size="sm" sx={{ lineHeight: 1 }} mr={3}>
                       {user.name}
                     </Text>
@@ -235,19 +219,6 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
             <AuthButton classes={classes} />
           )}
         </Group>
-      </Container>
-      <Container>
-        <Tabs
-          defaultValue="Home"
-          variant="outline"
-          classNames={{
-            root: classes.tabs,
-            tabsList: classes.tabsList,
-            tab: classes.tab,
-          }}
-        >
-          <Tabs.List>{items}</Tabs.List>
-        </Tabs>
       </Container>
     </div>
   );
